@@ -1,36 +1,35 @@
 urlclustering
 =============
 
-This package facilitates the clustering of similar URLs of the same website.
+This package facilitates the clustering of similar URLs of a website.
 
-Imagine a website with the following URLs:
+You give a (preferably long and complete) list of URLs as input e.g.:
 
-    http://example.com
-    http://example.com/about
-    http://example.com/contact
+urls = [
+    'http://example.com',
+    'http://example.com/about',
+    'http://example.com/contact',
 
-    http://example.com/cat/sports
-    http://example.com/cat/tech
-    http://example.com/cat/life
-    http://example.com/cat/politics
-    ...
+    'http://example.com/cat/sports',
+    'http://example.com/cat/tech',
+    'http://example.com/cat/life',
+    'http://example.com/cat/politics',
 
-    http://example.com/tag/623/tag1
-    http://example.com/tag/335/tag2
-    http://example.com/tag/671/tag3
-    ...
+    'http://example.com/tag/623/tag1',
+    'http://example.com/tag/335/tag2',
+    'http://example.com/tag/671/tag3',
 
-    http://example.com/article/?id=1
-    http://example.com/article/?id=2
-    http://example.com/article/?id=3
-    ...
+    'http://example.com/article/?id=1',
+    'http://example.com/article/?id=2',
+    'http://example.com/article/?id=3',
+]
 
-With urlclustering you'll get this result:
+You get a list of clusters as a result. For each cluster you get:
+- a REGEX that matches all cluster URLs
+- a HUMAN readable string representing the cluster
+- a list with all matched cluster URLs
 
-    UNCLUSTERED:
-        http://example.com
-        http://example.com/about
-        http://example.com/contact
+So for our example the result is:
 
     REGEX: http://example.com/cat/([^/]+)
     HUMAN: http://example.com/cat/[...]
@@ -39,7 +38,6 @@ With urlclustering you'll get this result:
         http://example.com/cat/tech
         http://example.com/cat/life
         http://example.com/cat/politics
-        ...
 
     REGEX: http://example.com/tag/(\d+)/([^/]+)
     HUMAN: http://example.com/tag/[NUMBER]/[...]
@@ -47,7 +45,6 @@ With urlclustering you'll get this result:
         http://example.com/tag/623/tag1
         http://example.com/tag/335/tag2
         http://example.com/tag/671/tag3
-        ...
 
     REGEX: http://example.com/article/?\?id=(\d+)
     HUMAN: http://example.com/article?id=[NUMBER]
@@ -55,7 +52,11 @@ With urlclustering you'll get this result:
         http://example.com/article/?id=1
         http://example.com/article/?id=2
         http://example.com/article/?id=3
-        ...
+
+    UNCLUSTERED URLS:
+        http://example.com
+        http://example.com/about
+        http://example.com/contact
 
 
 License
