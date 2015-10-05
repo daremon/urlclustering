@@ -40,15 +40,6 @@ Inserting 3 URLs of the form `/article/[0-9]+` would lead to a tree like this:
 The final step is to choose the best leafs. In this case `article` -> `\d+`
 is best because it macthes all 3 URLs with 1 reduction so the cluster returned
 is http://ex.com/article?(\d+)
-
-TODO:
------
-    - Sort QS parameters
-    - Signature should count path elems and params, not values
-    - ParsedURL should extract domain, path and QS parts with 1 re
-    - User should be able to ignore params
-    - Python 3
-    - PyPI
 """
 
 

@@ -1,10 +1,14 @@
-urlclustering
-=============
+# urlclustering
 
 This package facilitates the clustering of similar URLs of a website.
 
+**Live demo**: http://urlclustering.com
+
+### General information
+
 You give a (preferably long and complete) list of URLs as input e.g.:
 
+```
 urls = [
     'http://example.com',
     'http://example.com/about',
@@ -23,6 +27,7 @@ urls = [
     'http://example.com/article/?id=2',
     'http://example.com/article/?id=3',
 ]
+```
 
 You get a list of clusters as a result. For each cluster you get:
 - a REGEX that matches all cluster URLs
@@ -31,6 +36,7 @@ You get a list of clusters as a result. For each cluster you get:
 
 So for our example the result is:
 
+```
     REGEX: http://example.com/cat/([^/]+)
     HUMAN: http://example.com/cat/[...]
     URLS:
@@ -57,26 +63,26 @@ So for our example the result is:
         http://example.com
         http://example.com/about
         http://example.com/contact
+```
 
-
-When to use
------------
+### When to use
 
 This is most useful for website analysis tools that report findings to the user.
 E.g. a service that crawls your website and reports page loading time may find
 that 10,000 pages take >2 seconds to load. Instead of listing 10,000 URLs it's
 better to cluster them. So the end user will see something like:
 
+```
 Slow pages (>2 secs):
 - http://example.com/                             (1 URL)
 - http://example.com/sitemap                      (1 URL)
 - http://example.com/search?q=[...]               (578 URLs)
 - http://example.com/tags?tag1=[...]&tag2=[...]   (409 URLs)
 - http://example.com/article?id=[NUMBER]          (7209 URLs)
+```
 
+### How it works:
 
-How it works:
--------------
 URLs are grouped by domain. Only same domain URLs are clustered.
 
 URLs are then grouped by a signature which is the number of path elements
@@ -93,13 +99,17 @@ each part (path element or QS parameter or QS value) two nodes are created:
 Leaf nodes hold the number of URLs that match and the number of reductions.
 
 E.g. inserting URL `http://ex.com/article?123` will create 2 top nodes:
+```
     root 1: `article`
     root 2: `[^/]+`
+```
 And each top node will have two children:
+```
     child 1: `123`
     child 2: `\d+`
+```
 Inserting 3 URLs of the form `/article/[0-9]+` would lead to a tree like this:
-
+```
            `article`                        `[^/]+`
       /    /      \     \             /    /      \     \
   `123`  `456`  `789`  `\d+`      `123`  `456`  `789`  `\d+`
@@ -109,10 +119,9 @@ Inserting 3 URLs of the form `/article/[0-9]+` would lead to a tree like this:
 The final step is to choose the best leafs. In this case `article` -> `\d+`
 is best because it macthes all 3 URLs with 1 reduction so the cluster returned
 is http://ex.com/article?(\d+)
+```
 
-
-License
--------
+### License
 
 Copyright (c) 2015 Dimitris Giannitsaros.
 
