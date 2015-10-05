@@ -115,11 +115,11 @@ Inserting 3 URLs of the form `/article/[0-9]+` would lead to a tree like this:
   `123`  `456`  `789`  `\d+`      `123`  `456`  `789`  `\d+`
   1 URL  1 URL  1 URL  3 URLs     1 URL  1 URL  1 URL  3 URLs
   0 re   0 re   0 re   1 re       1 re   1 re   1 re   2  re
+```
 
 The final step is to choose the best leafs. In this case `article` -> `\d+`
 is best because it macthes all 3 URLs with 1 reduction so the cluster returned
 is http://ex.com/article?(\d+)
-```
 
 ### License
 
