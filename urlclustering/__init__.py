@@ -1,4 +1,5 @@
-from urlclusterer import cluster_urls
+from __future__ import absolute_import
+from .urlclusterer import cluster_urls
 
 
 def cluster(urls, min_cluster_size=10):

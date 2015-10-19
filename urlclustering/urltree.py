@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import re
 
 
@@ -9,9 +10,9 @@ class URLTreeNode(dict):
     to the very generic e.g. ~[^/]+/[^/]+/\d+~ (that match all URLs).
     """
 
-    REDUCED_NUM_LITERAL = u'(\d+)'
-    REDUCED_PATH_LITERAL = u'([^/]+)'
-    REDUCED_PARAM_LITERAL = u'([^&=?]+)'
+    REDUCED_NUM_LITERAL = '(\d+)'
+    REDUCED_PATH_LITERAL = '([^/]+)'
+    REDUCED_PARAM_LITERAL = '([^&=?]+)'
 
     def __init__(self, iterable=(), r='', h='', reductions=0):
         self.r = r  # regular expression so far

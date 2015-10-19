@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import re
 from urlclustering.urltree import URLTreeNode
 
@@ -21,25 +22,23 @@ def _str_reduce(strings, pattern, h_pattern):
     Reduces the given strings to a regexp by extracting the
     commong prefix and suffix
     """
-    prefix = u''
+    prefix = ''
     for ix in range(1, len(strings[0])):
         prefix = strings[0][:ix]
-        matching = len(strings) == len(filter(lambda x: x[:ix] == prefix,
-                                              strings))
+        matching = len(strings) == len([x for x in strings if x[:ix] == prefix])
         if not matching:
             prefix = strings[0][:ix-1]
             break
 
-    suffix = u''
+    suffix = ''
     for ix in range(1, len(strings[0]) - len(prefix)):
         suffix = strings[0][-ix:]
-        matching = len(strings) == len(filter(lambda x: x[-ix:] == suffix,
-                                              strings))
+        matching = len(strings) == len([x for x in strings if x[-ix:] == suffix])
         if not matching:
             if ix > 1:
                 suffix = strings[0][-(ix-1):]
             else:
-                suffix = u''
+                suffix = ''
             break
 
     return (u"%s%s%s" % (prefix, pattern, suffix),
@@ -78,8 +77,8 @@ def _improve_cluster_pattern(cluster_key, urls):
 
     group = 0
     matches = [re.search(pattern, url) for url in urls]
-    improved_pattern = u''
-    improved_h_pattern = u''
+    improved_pattern = ''
+    improved_h_pattern = ''
     for ix in range(0, len(pattern_parsed)):
         if (pattern_parsed[ix] !=
             URLTreeNode.REDUCED_PATH_LITERAL and
@@ -99,7 +98,7 @@ def _improve_cluster_pattern(cluster_key, urls):
 
 
 def improve_patterns(clusters):
-    for key in clusters.iterkeys():
+    for key in clusters.keys():
         improved = _improve_cluster_pattern(key, clusters[key])
         if improved != key:
             clusters[improved] = clusters[key]

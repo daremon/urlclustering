@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from setuptools import setup
 
 
@@ -26,6 +27,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
         'Topic :: Internet',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],

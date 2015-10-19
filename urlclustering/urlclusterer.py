@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import re
 from collections import defaultdict
 from urlclustering.urltree import URLTreeNode
@@ -91,7 +92,7 @@ def _cluster_same_domain_urls(parsed_urls, min_cluster_size):
     # build clusters
     clusters = defaultdict(list)
     unclustered = []
-    for parsed_urls in url_map.itervalues():
+    for parsed_urls in url_map.values():
         if len(parsed_urls) < min_cluster_size:
             unclustered.extend([x.url for x in parsed_urls])
             continue
@@ -131,11 +132,11 @@ def cluster_urls(urls, min_cluster_size=10):
             res['unclustered'].append(parsed.url)
 
     # cluster in each domain group
-    for domain, parsed_urls in by_domain.iteritems():
+    for domain, parsed_urls in by_domain.items():
         c_res = _cluster_same_domain_urls(parsed_urls, min_cluster_size)
         res['clusters'].update({('%s%s' % (domain, k[0]),
                                  '%s%s' % (domain, k[1])): v
-                                for k, v in c_res['clusters'].iteritems()})
+                                for k, v in c_res['clusters'].items()})
         res['unclustered'].extend(c_res['unclustered'])
 
     return res

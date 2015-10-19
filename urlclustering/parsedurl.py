@@ -1,7 +1,8 @@
+from __future__ import unicode_literals
 import re
 
 
-class ParsedURL(object):
+class ParsedURL():
     """
     Parses a URL and exposes:
         - parts: a list with path and QS elements:
@@ -23,7 +24,7 @@ class ParsedURL(object):
         path_re = re.search(r'https?://[^/?#]+/([^?#]+)', url)
         if path_re:
             elems = path_re.group(1).strip('/').split('/')
-            self._parts = zip(['/'] * len(elems), elems)
+            self._parts = list(zip(['/'] * len(elems), elems))
         path_parts = len(self._parts)
         # QS parts
         qs_re = re.search(r'https?://[^?#]+\?([^#]+)', url)
@@ -41,7 +42,7 @@ class ParsedURL(object):
         self._signature = (path_parts, len(self._parts) - path_parts)
         # domain
         self._domain = None
-        domain_re = re.search(ur'^((https?://)[^/\?\#]+)', url, re.U)
+        domain_re = re.search(r'^((https?://)[^/\?\#]+)', url, re.U)
         if domain_re:
             self._domain = domain_re.group(1)
 
