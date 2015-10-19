@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from setuptools import setup
 
 
@@ -9,7 +8,7 @@ def read(filename):
 
 setup(
     name="urlclustering",
-    version="0.4",
+    version="0.4.1",
     author="Dimitris Giannitsaros",
     author_email="daremon@gmail.com",
     description="Facilitate clustering of similar URLs of a website",
